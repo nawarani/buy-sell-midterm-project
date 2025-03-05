@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS games CASCADE;
+CREATE TABLE games (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  price_cents INTEGER NOT NULL,
+  condition TEXT NOT NULL,
+  is_sold BOOLEAN NOT NULL,
+  description TEXT
+);

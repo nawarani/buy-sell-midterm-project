@@ -4,6 +4,7 @@ CREATE TABLE games (
   name VARCHAR(255) NOT NULL,
   price_cents INTEGER NOT NULL,
   condition TEXT NOT NULL,
-  is_sold BOOLEAN NOT NULL,
+  system_id INTEGER REFERENCES systems(id) ON DELETE CASCADE,
+  is_sold BOOLEAN NOT NULL DEFAULT false,
   description TEXT
 );

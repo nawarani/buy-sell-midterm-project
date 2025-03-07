@@ -7,6 +7,7 @@ const morgan = require('morgan');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+const cookieSession = require('cookie-session');
 
 app.set('view engine', 'ejs');
 
@@ -16,6 +17,11 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['jdhsgfcjhsgj']
+}));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -35,6 +41,7 @@ app.use('/users', usersRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+// landing page: not done
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -42,3 +49,20 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+// login form
+app.get('/login', (req, res) => {
+  const templateVars = {
+    email: req.session.email
+  };
+  res.render("login.ejs", templateVars);
+});
+
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const name = req.body.name;
+  req.session.email = email //set cookie
+  // TODO: those two info needs to be sentto users table
+  res.redirect('/index');
+});
+

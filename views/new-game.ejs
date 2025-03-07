@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post new games</title>
+</head>
+<body>
+  <form action="/games/new" method="POST">
+    <!-- Can use dollars but convert in backend -->
+    <!-- name, price_cents, description, condition, system -->
+    <label for="name">Game name</label>
+     <input type="text" id="name" name="name"> 
+    <label for="description">Game description</label>
+     <input type="text" id="description" name="description">
+     <button type="submit">Submit</button> 
+  </form>
+</body>
+</html>

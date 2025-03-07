@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post new games</title>
+</head>
+<body>
+  <h1>Post a game for sale</h1>
+  <form action="/games/new" method="POST">
+    <!-- Can use dollars but convert in backend -->
+    <!-- name, price_cents, description, condition, system -->
+    <label for="name">Game Title</label>
+     <input type="text" id="name" name="name">
+
+    <label for="description">Description</label>
+     <input type="text" id="description" name="description">
+     
+     <label for="price">Price</label>
+     <input type="text" id="price" name="price">
+
+    <div class="conditions">
+      <label for="condition">Condition:</label>
+      <label for="new">New</label>
+      <input type="radio" id="new" name="condition">
+      <label for="like new">Like new</label>
+      <input type="radio" id="like new" name="condition">
+      <label for="used">Used</label>
+      <input type="radio" id="used" name="condition">
+    </div>
+    <div class="systems">
+      <label for="ps2">PS2</label>
+      <input type="radio" id="ps2">
+      <label for="sega">Sega</label>
+      <input type="radio" id="sega">
+
+      <label for="image">Image of game</label>
+      <input type="url" id="image" name="image" placeholder="Image">
+    </div>
+    <button type="submit">Submit</button> 
+  </form>
+</body>
+</html>

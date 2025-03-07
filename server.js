@@ -27,14 +27,14 @@ app.use(cookieSession({
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
-const usersRoutes = require('./routes/users');
+const loginRoutes = require("./routes/login");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
-app.use('/users', usersRoutes);
+app.use('/login', loginRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -48,21 +48,5 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
-});
-
-// login form
-app.get('/login', (req, res) => {
-  const templateVars = {
-    email: req.session.email
-  };
-  res.render("login.ejs", templateVars);
-});
-
-app.post('/login', (req, res) => {
-  const email = req.body.email;
-  const name = req.body.name;
-  req.session.email = email //set cookie
-  // TODO: those two info needs to be sentto users table
-  res.redirect('/index');
 });
 

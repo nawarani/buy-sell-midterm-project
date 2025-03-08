@@ -6,7 +6,14 @@ router.get('/login', (req, res) => {
     email: req.session.email
   };
   res.render('login', templateVars);
-  // res.render('login');
 }); 
+
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const name = req.body.name;
+  req.session.email = email //set cookie
+  // TODO: those two info needs to be sentto users tablenvm use 8
+  res.redirect('/index');
+});
 
 module.exports = loginRouter;

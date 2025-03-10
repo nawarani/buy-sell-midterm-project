@@ -13,9 +13,7 @@ router.get('/', (req, res) => {
       res.render('messages', templateVars);
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+      console.log('error inside messages.js', err);
     });
 }); 
 

@@ -10,8 +10,7 @@ const app = express();
 const cookieSession = require('cookie-session');
 
 const userQueries = require('./db/queries/users');
-const getUserId = userQueries.getUserId;
-const getAdmin = userQueries.getAdmin;
+const getUserByEmail = userQueries.getUserByEmail;
 const checkUserExists = userQueries.checkUserExists;
 
 

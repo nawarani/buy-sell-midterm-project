@@ -7,22 +7,26 @@ const getUsers = () => {
     });
 };
 
-const getUserId = (email) => {
-  return db.query(`SELECT id FROM users WHERE email = ${email};`)
+const getUserByEmail = (email) => {
+  console.log('email', email);
+  return db.query(`SELECT * FROM users WHERE email = '${email}';`)
     .then(data => {
       return data.rows[0];
-    });
+    })
+    .catch(err => {
+      console.log('error', err);
+    })
 };
 
-const getAdmin = (id) => {
-  return db.query(`SELECT is_admin FROM users WHERE id = ${id};`)
+const getUserById = (id) => {
+  return db.query(`SELECT * FROM users WHERE id = '${id}';`)
     .then(data => {
       return data.rows[0];
     });
 };
 
 const checkUserExists = (name, email) => {
-  return db.query(`SELECT * FROM users WHERE name = ${name} AND email = ${email};`)
+  return db.query(`SELECT * FROM users WHERE name = '${name}' AND email = '${email}';`)
     .then(data => {
       return Boolean(data.rows[0]);
     });
@@ -30,7 +34,7 @@ const checkUserExists = (name, email) => {
 
 module.exports = { 
   getUsers, 
-  getUserId, 
-  getAdmin, 
+  getUserByEmail,
+  getUserById,
   checkUserExists 
 };

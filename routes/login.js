@@ -2,8 +2,8 @@ const express = require('express');
 const router  = express.Router();
 // user query functions
 const userQueries = require('../db/queries/users');
-const getUserId = userQueries.getUserId;
-const getAdmin = userQueries.getAdmin;
+const getUsers = userQueries.getUsers;
+const getUserByEmail = userQueries.getUserByEmail;
 const checkUserExists = userQueries.checkUserExists;
 
 router.get('/', (req, res) => {
@@ -20,14 +20,20 @@ router.post('/', (req, res) => {
   // TODO: check if it's a match
   if (checkUserExists(name, email)){
     console.log("inside login.js usercheck pass");
-    const userId = getUserId(email);
-    // set them as logged in, using cookies
-    req.session.userId = userId;
-    // set is-admin cookie for ease of development
-    req.session.isAdmin = getAdmin(userId);
+    // change this to promise
+    getUserByEmail(email)
+    .then(user => {
+      // set them as logged in, using cookies
+      req.session.userId = user.id;
+      // set is-admin cookie for ease of development
+      req.session.isAdmin = user.is_admin;
+    })
+    .then(()=> {
+      res.redirect('/');
+    });
+  } else {
+    res.redirect('/');
   }
-  console.log("outside login.js usercheck pass");
-  res.redirect('/');
 });
 
 module.exports = router;

@@ -14,14 +14,14 @@
     </button>
     <div>
       <% if(id !== undefined) { %>
-        <!-- if id exists/user logged in, logout option -->
+        <!-- if id exists, logout option -->
         <div>
           <form method="POST" action="/logout">
             <button type="submit">Logout</button>
           </form>
         </div>
       <% } else { %>
-        <!-- if id doesnt exist/user not logged in, login option -->
+        <!-- if id does not exist/cookie not set, login option -->
         <div>
           <a href="/login">Login</a>
         </div>

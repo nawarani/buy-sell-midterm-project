@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   messageQueries.getMessages()
     .then(messages => {
       templateVars = {
-        messages
+        messages: messages
       }
       res.render('messages', templateVars);
     })

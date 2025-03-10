@@ -1,6 +1,6 @@
 const db = require('../connection');
 
-const getUsers = () => {
+const getMessages = () => {
   // currently shows all messages, I will select based on id once i get this working
   return db.query('SELECT text FROM messages;')
     .then(data => {

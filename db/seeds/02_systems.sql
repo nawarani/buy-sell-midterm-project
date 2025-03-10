@@ -1,2 +1,2 @@
-INSERT INTO systems (name) VALUES ('ps2');
-INSERT INTO systems (name) VALUES ('sega');
+INSERT INTO systems (name) VALUES ('PS5');
+INSERT INTO systems (name) VALUES ('Sega');

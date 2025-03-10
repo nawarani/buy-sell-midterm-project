@@ -1,19 +1,33 @@
 const express = require('express');
-const loginRouter  = express.Router();
+const router  = express.Router();
+// user query functions
+const userQueries = require('../db/queries/users');
+const getUserId = userQueries.getUserId;
+const getAdmin = userQueries.getAdmin;
+const checkUserExists = userQueries.checkUserExists;
 
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
   const templateVars = {
-    email: req.session.email
+    id: req.session.userId
   };
   res.render('login', templateVars);
 }); 
 
-app.post('/login', (req, res) => {
-  const email = req.body.email;
+router.post('/', (req, res) => {
+  // name is used for verification purposes here since we dont have passwords
   const name = req.body.name;
-  req.session.email = email //set cookie
-  // TODO: those two info needs to be sentto users tablenvm use 8
-  res.redirect('/index');
+  const email = req.body.email;
+  // TODO: check if it's a match
+  if (checkUserExists(name, email)){
+    console.log("inside login.js usercheck pass");
+    const userId = getUserId(email);
+    // set them as logged in, using cookies
+    req.session.userId = userId;
+    // set is-admin cookie for ease of development
+    req.session.isAdmin = getAdmin(userId);
+  }
+  console.log("outside login.js usercheck pass");
+  res.redirect('/');
 });
 
-module.exports = loginRouter;
+module.exports = router;

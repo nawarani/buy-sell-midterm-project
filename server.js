@@ -9,6 +9,12 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const cookieSession = require('cookie-session');
 
+const userQueries = require('./db/queries/users');
+const getUserId = userQueries.getUserId;
+const getAdmin = userQueries.getAdmin;
+const checkUserExists = userQueries.checkUserExists;
+
+
 app.set('view engine', 'ejs');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -29,6 +35,7 @@ const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const gamesRoutes = require('./routes/games');
 const loginRoutes = require("./routes/login");
+const logoutRoutes = require("./routes/logout");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -37,6 +44,7 @@ app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/games', gamesRoutes);
 app.use('/login', loginRoutes);
+app.use('/logout', logoutRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page

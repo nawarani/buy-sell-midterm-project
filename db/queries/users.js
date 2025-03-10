@@ -22,11 +22,10 @@ const getAdmin = (id) => {
 };
 
 const checkUserExists = (name, email) => {
-  // return db.query(`SELECT * FROM users WHERE name = ${name} AND email = ${email};`)
-  //   .then(data => {
-  //     return Boolean(data.rows[0]);
-  //   });
-  return true;
+  return db.query(`SELECT * FROM users WHERE name = ${name} AND email = ${email};`)
+    .then(data => {
+      return Boolean(data.rows[0]);
+    });
 };
 
 module.exports = { 

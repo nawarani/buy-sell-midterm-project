@@ -7,6 +7,12 @@ const morgan = require('morgan');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+const cookieSession = require('cookie-session');
+
+const userQueries = require('./db/queries/users');
+const getUserByEmail = userQueries.getUserByEmail;
+const checkUserExists = userQueries.checkUserExists;
+
 
 app.set('view engine', 'ejs');
 
@@ -17,12 +23,19 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+app.use(cookieSession({
+  name: 'session',
+  keys: ['jdhsgfcjhsgj']
+}));
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const gamesRoutes = require('./routes/games');
 const messageRoutes = require('./routes/messages');
+const loginRoutes = require("./routes/login");
+const logoutRoutes = require("./routes/logout");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -31,12 +44,15 @@ app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/games', gamesRoutes);
 app.use('/messages', messageRoutes);
+app.use('/login', loginRoutes);
+app.use('/logout', logoutRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+// landing page: not done
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -44,3 +60,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+

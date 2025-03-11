@@ -18,7 +18,14 @@ router.get('/', (req, res) => {
 }); 
 
 router.post('/', (req, res) => {
-  // send the messages to the db message table
+  // userId set up this way for testing
+  // const userId = req.session.userId;
+  const userId = 1;
+  console.log('message text:', req.body.message);
+  messageQueries.sendMessage(userId, req.body.message)
+  .then(() => {
+    console.log('either error above or message sent');
+  })
 }); 
 
 module.exports = router;

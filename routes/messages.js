@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     console.log('message text:', req.body.message);
     messageQueries.sendMessage(userId, req.body.message)
     .then(() => {
-      console.log('either error above or message sent');
+      res.redirect('/messages'); // do i have to get jquery involved for this?
     })
   } else {
     res.redirect('/login');

@@ -20,7 +20,9 @@
 <body>
   <main>
     <div>
-      this is where messages go
+      <% for (let message of messages) { %>
+        <div class ="message-span"> <%= message.text %> </div>
+      <% } %>
     </div>
     <form method = "POST" action = "/messages">
       <input

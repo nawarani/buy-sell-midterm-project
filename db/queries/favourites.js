@@ -7,4 +7,8 @@ const getFavouritesById = (user_id) => {
     });
 };
 
-module.exports = { getFavouritesById };
+const markFavourite = (user_id, game_id) => {
+ return db.query(`INSERT INTO favourites(user_id, game_id) VALUES(${user_id}, ${game_id})`)
+}
+
+module.exports = { getFavouritesById, markFavourite };

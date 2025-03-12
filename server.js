@@ -22,14 +22,13 @@ app.use(express.static('public'));
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const gamesRoutes = require('./routes/games');
-const homeRoutes = require('./routes/home');
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/games', gamesRoutes);
-app.use('/', homeRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page

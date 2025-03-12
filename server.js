@@ -9,10 +9,6 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const cookieSession = require('cookie-session');
 
-const userQueries = require('./db/queries/users');
-const getUserByEmail = userQueries.getUserByEmail;
-const checkUserExists = userQueries.checkUserExists;
-
 
 app.set('view engine', 'ejs');
 

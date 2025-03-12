@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.get('/load', (req, res) => {
   messageQueries.getMessages()
     .then(messages => {
-      res.json({ messages });
+      res.json({ messages: messages, userId: req.session.userId });
     })
     .catch(err => {
       console.log('error inside load messages.js', err);

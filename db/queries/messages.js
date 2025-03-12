@@ -2,9 +2,8 @@ const db = require('../connection');
 
 const getMessages = () => {
   // currently shows all messages, I will select based on id once i get this working
-  return db.query('SELECT text FROM messages;')
+  return db.query('SELECT * FROM messages;')
     .then(data => {
-      console.log('messages data', data.rows);
       return data.rows;
     });
 };
@@ -16,4 +15,7 @@ const sendMessage = (sender_id, text) => {
   })
 };
 
-module.exports = { getMessages, sendMessage };
+module.exports = { 
+  getMessages, 
+  sendMessage
+};

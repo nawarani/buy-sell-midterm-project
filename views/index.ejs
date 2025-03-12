@@ -37,7 +37,7 @@
 
       <!-- Mark as Sold Button -->
       <% if (!game.is_sold) { %>
-        <form action="/games/sold/<%= game.id %>" method="POST" style="display:inline;">
+        <form action="/games/sold/<%= game.id %>" method="POST">
           <button type="submit">✅ Mark as Sold</button>
         </form>
       <% } else { %>

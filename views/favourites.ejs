@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,9 +18,16 @@
 </head>
 
 <body>
+  <h1>Favourites</h1>
   <div class = 'favourite-container'>
     <% for(let item of favouriteItems) { %>
-      <li><a  href="/items/<%= item.id %>"><%= item.name %></a></li>
+      <article>
+        name: <%= item.name %>
+        price: $<%= item.price_cents/100 %>
+        condition: <%= item.condition %>
+        Sold: <%= item.is_sold %>
+        description: <%= item.description %>
+      </article>
     <% } %>
   </div>
 </body>

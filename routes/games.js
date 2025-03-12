@@ -65,4 +65,31 @@ gameRoutes.post('/sold/:id', (req, res) => {
   });
 });
 
+// Resets marked as sold button upon server start up
+// Might move code back to home.js (organization based on what it does)
+const resetQuery = 'UPDATE games SET is_sold = FALSE';
+
+db.query(resetQuery)
+  .then(() => {
+    console.log('All games are marked as available on server startup');
+  })
+  .catch((err) => {
+    console.error('Error resetting games:', err);
+  });
+
+  gameRoutes.post('/games/sold/:id', (req, res) => {
+    const gameId = req.params.id;
+  
+    const updateQuery = 'UPDATE games SET is_sold = TRUE WHERE id = $1';
+  
+    db.query(updateQuery, [gameId])
+      .then(() => {
+        res.redirect('/'); // Redirect back to the home page after marking it as sold
+      })
+      .catch((err) => {
+        console.error('Error marking game as sold:', err);
+        res.status(500).send('Error updating game status');
+      });
+  });
+
 module.exports = gameRoutes

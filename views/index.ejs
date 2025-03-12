@@ -19,6 +19,18 @@
 
 <body>
   <h1>Welcome to Save Point Games  🥔</h1>
+
+  <h2>Available Games</h2>
+  <ul>
+    <% games.forEach(game => { %>
+      <li>
+        <h3><%= game.name %></h3>
+        <p><strong>Price:</strong> $<%= (game.price_cents / 100).toFixed(2) %></p>
+        <p><strong>Condition:</strong> <%= game.condition %></p>
+        <p><strong>Description:</strong> <%= game.description %></p>
+      </li>
+    <% }); %>
+  </ul>
 </body>
 
 </html>

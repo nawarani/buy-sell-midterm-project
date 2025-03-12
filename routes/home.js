@@ -4,7 +4,7 @@ const db = require("../db/connection");
 
 // Home page route - Fetch all games and render them
 homeRoutes.get("/", (req, res) => {
-  const query = "SELECT * FROM games";
+  const query = 'SELECT * FROM games ORDER BY is_sold ASC, ID ASC';
   
   db.query(query)
     .then((result) => {
@@ -16,5 +16,10 @@ homeRoutes.get("/", (req, res) => {
       res.status(500).send("Error loading games");
     });
 });
+
+
+
+
+
 
 module.exports = homeRoutes;

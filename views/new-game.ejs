@@ -33,10 +33,10 @@
       <!-- dynamically fetch generated systems values for future additions -->
        <p>Select a system:</p>
        <label for="ps5">PS5</label>
-       <!-- <input type="radio" id="ps5" name="system" value="1" required>
+       <!-- <input type="radio" id="ps5" name="system" value="1" required> -->
  
        <label for="sega">Sega</label>
-       <input type="radio" id="sega" name="system" value="2" required> -->
+       <!-- <input type="radio" id="sega" name="system" value="2" required> -->
        <% systems.map((system) => { %>
         <label for="<%= system.name %>"><%= systems.name %></label>
         <input type="radio" id="<%= system.name %>" name="system" value="<%= system.id %>" required>

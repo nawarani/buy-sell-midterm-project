@@ -48,6 +48,21 @@ gameRoutes.post('/new', (req, res) => {
     });
 });
 
+// this route handles status of the game if its been sold or not
+
+gameRoutes.post('/sold/:id', (req, res) => {
+  const gameId = req.params.id;
+
+  const query = 'UPDATE games SET is_sold = TRUE WHERE id = $1 RETURNING *;';
+
+  db.query(query, [gameId])
+  .then(() => {
+    res.redirect('/'); // this will reload the page but with updated status of game as SOLD
+  })
+  .catch((err) => {
+    console.log('Error, did not mark game as sold', err);
+    res.status(500).send('Experienced error, did not update status of game')
+  });
+});
 
 module.exports = gameRoutes
-

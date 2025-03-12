@@ -20,6 +20,8 @@
 <body>
   <h1>Welcome to Save Point Games  🥔</h1>
 
+
+
   <h2>Available Games</h2>
   <ul>
     <% games.forEach(game => { %>
@@ -28,9 +30,27 @@
         <p><strong>Price:</strong> $<%= (game.price_cents / 100).toFixed(2) %></p>
         <p><strong>Condition:</strong> <%= game.condition %></p>
         <p><strong>Description:</strong> <%= game.description %></p>
+        <a href="/favourite?game_id=<%= game.id %>">
+          <button>❤️ Favourite</button>
+        </a>
       </li>
+
+      <!-- Mark as Sold Button -->
+      <% if (!game.is_sold) { %>
+        <form action="/games/sold/<%= game.id %>" method="POST" style="display:inline;">
+          <button type="submit">✅ Mark as Sold</button>
+        </form>
+      <% } else { %>
+        <span>✔ Sold</span>
+      <% } %>
+
+
     <% }); %>
   </ul>
+
+  <a href="/games/new">
+    <button>Post game for sale</button>
+  </a>
 </body>
 
 </html>

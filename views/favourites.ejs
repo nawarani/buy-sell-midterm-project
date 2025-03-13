@@ -11,8 +11,13 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/header.css" />
+  <link rel="stylesheet" href="/styles/gameBox.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
@@ -20,18 +25,20 @@
 
 <body>
   <%- include('partials/_header') %>
-  <h1>Favourites</h1>
-  <div class = 'favourite-container'>
-    <% for(let item of favouriteItems) { %>
-      <article>
-        name: <%= item.name %>
-        price: $<%= item.price_cents/100 %>
-        condition: <%= item.condition %>
-        Sold: <%= item.is_sold %>
-        description: <%= item.description %>
-      </article>
-    <% } %>
-  </div>
+  <main>
+    <h1>Favourites</h1>
+    <div class = 'game-container'>
+      <% for(let item of favouriteItems) { %>
+        <article class = 'game-box'>
+          <span><strong>Name:</strong> <%= item.name %></span>
+          <span><strong>Price:</strong> $<%= item.price_cents/100 %></span>
+          <span><strong>Condition:</strong> <%= item.condition %></span>
+          <span><strong>Sold:</strong> <%= item.is_sold %></span>
+          <span><strong>Description:</strong> <%= item.description %></span>
+        </article>
+      <% } %>
+    </div>
+  </main>
 </body>
 
 </html>

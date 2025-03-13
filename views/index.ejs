@@ -22,6 +22,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/scripts/app.js"></script>
+  <script defer src="/scripts/favourites.js"></script>
 </head>
 
 <body>
@@ -45,8 +46,8 @@
             <p><strong>Price:</strong> $<%= (game.price_cents / 100).toFixed(2) %></p>
             <p><strong>Condition:</strong> <%= game.condition %></p>
             <p><strong>Description:</strong> <%= game.description %></p>
-            <form action="/favourite?game_id=<%= game.id %>" method="POST">
-              <button>❤️ Favourite</button>
+            <form action="/favourite?game_id=<%= game.id %>" method="POST" class = "favourites-form" data-favourite = "<%= game.id %>">
+              <button type="submit">❤️ Favourite</button>
             </form>
 
             <button class="delete-btn" data-id="<%= game.id %>">Remove</button>

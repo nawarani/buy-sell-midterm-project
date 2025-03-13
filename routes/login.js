@@ -8,7 +8,7 @@ const checkUserExists = userQueries.checkUserExists;
 
 router.get('/', (req, res) => {
   const templateVars = {
-    id: req.session.userId
+    userId: req.session.userId
   };
   res.render('login', templateVars);
 }); 

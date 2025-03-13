@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const userId = req.session.userId;
   if (userId) {
-    const game_id = 2; // for testing
+    // const game_id = 2; // for testing
     favouritesQueries.markFavourite(userId, game_id);
   } else {
     res.redirect('/login');

@@ -19,7 +19,8 @@ gameRoutes.get('/new', (req, res) => {
     .then((result) => {
       // Create templateVars object and pass systems from the database to it
       const templateVars = {
-        systems: result.rows // Assuming result.rows contains the systems data
+        systems: result.rows, // Assuming result.rows contains the systems data
+        userId: req.session.userId
       };
 
       // Render the 'new-game' template and pass the templateVars

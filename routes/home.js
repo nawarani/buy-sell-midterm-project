@@ -8,7 +8,10 @@ homeRoutes.get("/", (req, res) => {
   
   db.query(query)
     .then((result) => {
-      const templateVars = { games: result.rows };
+      const templateVars = { 
+        games: result.rows,
+        userId: req.session.userId
+      };
       res.render("index", templateVars);
     })
     .catch((err) => {

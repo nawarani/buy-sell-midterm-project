@@ -17,10 +17,9 @@ router.post('/', (req, res) => {
   // name is used for verification purposes here since we dont have passwords
   const name = req.body.name;
   const email = req.body.email;
-  // TODO: check if it's a match
-  if (checkUserExists(name, email)){
+  // if user logged in already, redirect them to homepage
+  if(checkUserExists(name, email)){
     console.log("inside login.js usercheck pass");
-    // change this to promise
     getUserByEmail(email)
     .then(user => {
       // set them as logged in, using cookies

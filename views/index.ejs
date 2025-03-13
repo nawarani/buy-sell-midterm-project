@@ -32,8 +32,8 @@
     <h2>Available Games</h2>
 
     <form id="filterform" action="/games" method="GET" class = "filter-form">
-      <label for="maxPrice">Max Price: $<span id="priceValue">100</span></label>
-      <input type="range" name="maxPrice" id="maxPrice" min="10" max="200" step="10" value="100">
+      <label for="maxPrice">Max Price: $<span id="priceValue"><%= maxPrice %></span></label>
+      <input type="range" name="maxPrice" id="maxPrice" min="10" max="200" step="10" value="<%= maxPrice %>">
 
       <button type="submit">Filter</button>
     </form>

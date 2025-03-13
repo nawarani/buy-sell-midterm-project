@@ -11,7 +11,8 @@ homeRoutes.get("/", (req, res) => {
       const templateVars = { 
         games: result.rows,
         userId: req.session.userId,
-        isAdmin: req.session.isAdmin
+        isAdmin: req.session.isAdmin,
+        maxPrice: 100
       };
       res.render("index", templateVars);
     })

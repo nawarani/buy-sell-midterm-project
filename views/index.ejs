@@ -68,10 +68,11 @@
       <% }); %>
     </ul>
 
-    
-    <a href="/games/new" class="post-new-game-button">
-      <button>Post game for sale</button>
-    </a>
+    <% if(isAdmin) { %>
+      <a href="/games/new" class="post-new-game-button">
+        <button>Post game for sale</button>
+      </a>
+    <% } %> 
 
     <a href="/messages" class="home-to-message"><button>Send a message</button></a>
   </main>

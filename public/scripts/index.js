@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const priceSlider = document.getElementById("maxPrice");
   const priceValue = document.getElementById("priceValue");
-  const filterform = document.querySelector('form'); 
+  const filterform = document.querySelector('.filter-form'); 
 
   priceValue.textContent = priceSlider.value;
   console.log(priceValue.textContent)

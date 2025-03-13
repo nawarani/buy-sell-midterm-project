@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   deleteButtons.forEach((button) => {
     button.addEventListener("click", function () {
       const gameId = this.dataset.id;
-      const gameElement = document.getElementById(`game-${gameId}`); // Get the list item element
+      const gameElement = document.getElementById(`game-${gameId}`).parentNode; // Get the list item element
       // Remove the game from the DOM (removes the <li> item from the list)
       if (gameElement) {
         gameElement.remove();

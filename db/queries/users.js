@@ -25,6 +25,13 @@ const getUserById = (id) => {
     });
 };
 
+const getAdmin = () => {
+  return db.query('SELECT * FROM users WHERE is_admin = true;')
+    .then(data => {
+      return data.rows[0];
+    });
+};
+
 const checkUserExists = (name, email) => {
   return db.query(`SELECT * FROM users WHERE name = '${name}' AND email = '${email}';`)
     .then(data => {
@@ -36,5 +43,6 @@ module.exports = {
   getUsers, 
   getUserByEmail,
   getUserById,
-  checkUserExists 
+  checkUserExists,
+  getAdmin
 };

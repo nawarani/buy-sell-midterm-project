@@ -9,10 +9,6 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const cookieSession = require('cookie-session');
 
-const userQueries = require('./db/queries/users');
-const getUserByEmail = userQueries.getUserByEmail;
-const checkUserExists = userQueries.checkUserExists;
-
 
 app.set('view engine', 'ejs');
 
@@ -33,9 +29,11 @@ app.use(cookieSession({
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const gamesRoutes = require('./routes/games');
+const messageRoutes = require('./routes/messages');
 const loginRoutes = require("./routes/login");
 const logoutRoutes = require("./routes/logout");
 const homeRoutes = require('./routes/home');
+const favouritesRoutes = require('./routes/favourites');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -43,10 +41,12 @@ const homeRoutes = require('./routes/home');
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/games', gamesRoutes);
+app.use('/messages', messageRoutes);
 app.use('/login', loginRoutes);
 app.use('/logout', logoutRoutes);
 app.use('/', homeRoutes);
 
+app.use('/favourites', favouritesRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page

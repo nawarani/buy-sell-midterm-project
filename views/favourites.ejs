@@ -27,7 +27,7 @@
   <%- include('partials/_header') %>
   <main>
     <h1>Favourites</h1>
-    <div class = 'game-container'>
+    <div class = 'game-container' id = 'game-container'>
       <% for(let item of favouriteItems) { %>
         <article class = 'game-box'>
           <span><strong>Name:</strong> <%= item.name %></span>

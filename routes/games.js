@@ -45,7 +45,7 @@ gameRoutes.post('/new', (req, res) => {
   db.query(query, values)
     .then(() => {
       // Redirect back to the form after successful insertion
-      res.redirect('/games/new');
+      res.redirect('/');
     })
     .catch((err) => {
       console.error("Error inserting new game:", err);

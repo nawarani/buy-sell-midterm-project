@@ -99,20 +99,20 @@ gameRoutes.get("/", (req, res) => {
 })
 //-------------------------------------------------------------------------------------
 // This handles deletes the individual game listing 
-// gameRoutes.post("/delete/:id", (req, res) => {
-//   const gameId = req.params.id;
+gameRoutes.post("/:id/delete", (req, res) => {
+  const gameId = req.params.id;
+  console.log(gameId)
+  const query = "DELETE FROM games WHERE id = $1";
 
-//   const query = "DELETE FROM games WHERE id = $1";
-
-//   db.query(query, [gameId])
-//     .then(() => {
-//       res.redirect("/games"); // Redirect back to the games listing
-//     })
-//     .catch((err) => {
-//       console.error("Error deleting game:", err);
-//       res.status(500).send("Error deleting game");
-//     });
-// });
+  db.query(query, [gameId])
+    .then(() => {
+      res.redirect("/"); // Redirect back to the main pages
+    })
+    .catch((err) => {
+      console.error("Error deleting game:", err);
+      res.status(500).send("Error deleting game");
+    });
+});
 
 //-------------------------------------------------------------------------------------
 // Resets marked as sold button upon server start up

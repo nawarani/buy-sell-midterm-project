@@ -73,8 +73,8 @@ gameRoutes.post('/sold/:id', (req, res) => {
 
   // this will filter out games based on the price filtering feature
 gameRoutes.get("/", (req, res) => {
-  const maxPrice = req.query.maxPrice || 200; //default price if non is set
-
+  const maxPrice = req.query.maxPrice || 100; //default price if non is set
+  console.log(maxPrice)
   // querying games in combination with the price filter
   const query = `
   SELECT * FROM games
@@ -84,7 +84,10 @@ gameRoutes.get("/", (req, res) => {
 
   db.query(query, [maxPrice * 100]) //converts prices
     .then((result) => {
-      const templateVars = { games: result.rows};
+      const templateVars = {
+        games: result.rows,
+        maxPrice: maxPrice
+      };
       res.render("index", templateVars)
     })
     .catch((err) => {

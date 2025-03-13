@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterform = document.querySelector('form'); 
 
   priceValue.textContent = priceSlider.value;
-
+  console.log(priceValue.textContent)
   priceSlider.addEventListener("input", function() {
     priceValue.textContent = priceSlider.value;
   })

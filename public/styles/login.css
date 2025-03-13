@@ -1,0 +1,18 @@
+body{
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form {
+  width: 50vw;
+  margin:auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form * {
+  /* margin: 5px; */
+  padding: 5px;
+  border-radius: 5px;
+  border:none;
+}

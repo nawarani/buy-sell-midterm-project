@@ -1,0 +1,20 @@
+.navbar {
+  background: #003049;
+  width:100vw;
+  display: flex;
+  flex-direction:row;
+  justify-content:space-around;
+  align-items:center;
+  padding: 5px;
+}
+
+.navbar-brand {
+  color: #EAE2B7;
+  font-family: 'Bungee', sans-serif;
+  margin-left:0;
+  margin-right:auto;
+}
+
+.navbar-brand:hover {
+  color: #F77F00;
+}

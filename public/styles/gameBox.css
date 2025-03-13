@@ -1,0 +1,22 @@
+.game-box {
+  width: 30vw;
+  padding: 10px;
+  margin: 20px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items:left;
+  background: #FCBF49;
+  border-radius: 5px;
+}
+
+.game-box:hover{
+  background:#003049;
+  color: #FCBF49;
+}
+
+.game-container{
+  width: 100vw;
+  display: flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+}

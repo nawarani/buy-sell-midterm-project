@@ -1,0 +1,31 @@
+ul {
+  list-style-type: none;
+}
+
+.filter-form{
+  width:50vw;;
+  display: flex;
+  flex-direction:row;
+  margin-right: 5px;
+  margin-left: auto;
+}
+
+.filter-form * {
+  padding: 0 5px;
+  margin: 0 5px;
+}
+
+.post-new-game-button, .home-to-message{
+  font-size: 2em;
+  padding: 10px;
+}
+
+h2{
+  color: #D62828;
+}
+
+.home-to-message{
+  position: absolute;
+  bottom: 20px;
+  right:20px;
+}

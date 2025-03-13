@@ -24,7 +24,7 @@
 
   <h2>Available Games</h2>
 
-  <form action="/games" method="GET">
+  <form id="filterform" action="/games" method="GET">
     <label for="maxPrice">Max Price: $<span id="priceValue">100</span></label>
     <input type="range" name="maxPrice" id="maxPrice" min="10" max="200" step="10" value="100">
 
@@ -33,7 +33,7 @@
 
   <ul>
     <% games.forEach(game => { %>
-      <li>
+      <li id="game-<%= game.id %>">
         <h3><%= game.name %></h3>
         <p><strong>Price:</strong> $<%= (game.price_cents / 100).toFixed(2) %></p>
         <p><strong>Condition:</strong> <%= game.condition %></p>
@@ -41,6 +41,8 @@
         <form action="/favourite?game_id=<%= game.id %>" method="POST">
           <button>❤️ Favourite</button>
         </form>
+
+        <button class="delete-btn" data-id="<%= game.id %>">Remove</button>
       </li>
       
       <!-- Mark as Sold Button -->
@@ -54,6 +56,7 @@
     <% }); %>
   </ul>
 
+    
   <a href="/games/new">
     <button>Post game for sale</button>
   </a>

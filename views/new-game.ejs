@@ -21,24 +21,37 @@
      <input type="text" id="price" name="price">
 
     <div class="conditions">
-      <label for="condition">Condition:</label>
-      <label for="new">New</label>
-      <input type="radio" id="new" name="condition">
-      <label for="like new">Like new</label>
-      <input type="radio" id="like new" name="condition">
-      <label for="used">Used</label>
-      <input type="radio" id="used" name="condition">
+     <label for="condition">Condition:</label>
+      <select name="condition" id="condition">
+        <option value="new">New</option>
+        <option value="like new">Like new</option>
+        <option value="used">Used</option>
+      </select>
     </div>
-    <div class="systems">
-      <label for="ps2">PS2</label>
-      <input type="radio" id="ps2">
-      <label for="sega">Sega</label>
-      <input type="radio" id="sega">
 
-      <label for="image">Image of game</label>
-      <input type="url" id="image" name="image" placeholder="Image">
+
+    <div class="systems">
+      <!-- dynamically fetch generated systems values for future additions -->
+       <p>Select a system:</p>
+       <label for="ps5">PS5</label>
+       <!-- <input type="radio" id="ps5" name="system" value="1" required> -->
+ 
+       <label for="sega">Sega</label>
+       <!-- <input type="radio" id="sega" name="system" value="2" required> -->
+       <% systems.map((system) => { %>
+        <label for="<%= system.name %>"><%= systems.name %></label>
+        <input type="radio" id="<%= system.name %>" name="system" value="<%= system.id %>" required>
+      <% }) %>
     </div>
+    
+    <label for="image">Image of game</label>
+    <input type="url" id="image" name="image" placeholder="Image">
     <button type="submit">Submit</button> 
   </form>
 </body>
 </html>
+
+
+
+
+

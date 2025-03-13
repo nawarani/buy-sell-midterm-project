@@ -32,6 +32,7 @@ const gamesRoutes = require('./routes/games');
 const messageRoutes = require('./routes/messages');
 const loginRoutes = require("./routes/login");
 const logoutRoutes = require("./routes/logout");
+const homeRoutes = require('./routes/home');
 const favouritesRoutes = require('./routes/favourites');
 
 // Mount all resource routes
@@ -43,6 +44,8 @@ app.use('/games', gamesRoutes);
 app.use('/messages', messageRoutes);
 app.use('/login', loginRoutes);
 app.use('/logout', logoutRoutes);
+app.use('/', homeRoutes);
+
 app.use('/favourites', favouritesRoutes);
 // Note: mount other resources here, using the same pattern above
 

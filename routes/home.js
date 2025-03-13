@@ -4,9 +4,15 @@ const db = require("../db/connection");
 
 // Home page route - Fetch all games and render them
 homeRoutes.get("/", (req, res) => {
-  const query = 'SELECT * FROM games ORDER BY is_sold ASC, ID ASC';
-  
-  db.query(query)
+  const query = "SELECT * FROM games WHERE is_sold = FALSE"; // THIS CODE CURRENTLY DELETES THE GAME LISTING ONCE SOLD
+  const values = [];
+
+  if (req.query.max_price) {
+    query += " AND price_cents <= $1";
+    values.push(req.query.max_price);
+  }
+
+  db.query(query, values)
     .then((result) => {
       const templateVars = { games: result.rows };
       res.render("index", templateVars);

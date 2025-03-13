@@ -1,0 +1,33 @@
+body {
+  min-height: 100vh;
+  background: #EAE2B7;
+  color: #003049;
+  font-family: "Inconsolata", monospace;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:100vw;
+  padding: 10px;
+}
+
+h1, h2, h3 {
+  font-family: "Bungee", sans-serif;
+  text-align: center;
+}
+
+button {
+  border: none;
+  background: #003049;
+  color: #FCBF49;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+button:hover {
+  background: #F77F00;
+  color:#003049;
+}

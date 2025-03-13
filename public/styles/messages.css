@@ -1,0 +1,42 @@
+.message-container{
+  width:50vw;
+  margin:auto;
+  background: white;
+  text-align:end;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.message {
+  margin: 5px;
+  margin-left:auto;
+  margin-right:0;
+  width: 60%;
+  background: #003049;
+  color: #EAE2B7;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.sender-messages{
+  margin-left:0;
+  margin-right:auto;
+  background:  #EAE2B7;
+  color: #003049;
+  text-align: start;
+}
+
+.new-message-form{
+  width:50vw;
+  margin:auto;
+  display: flex;
+  justify-content:space-between;
+  padding:10px;
+}
+
+.new-message-form input{
+  width:80%;
+  border:none;
+  border-radius: 5px;
+  padding: 5px;
+}

@@ -44,7 +44,7 @@ gameRoutes.post('/new', (req, res) => {
 
   db.query(query, values)
     .then(() => {
-      // Redirect back to the form after successful insertion
+      // Redirect back to home after successful insertion
       res.redirect('/');
     })
     .catch((err) => {
@@ -86,7 +86,9 @@ gameRoutes.get("/", (req, res) => {
     .then((result) => {
       const templateVars = {
         games: result.rows,
-        maxPrice: maxPrice
+        maxPrice: maxPrice,
+        userId: req.session.userId,
+        isAdmin: req.session.isAdmin
       };
       res.render("index", templateVars)
     })

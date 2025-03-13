@@ -49,17 +49,20 @@
             <form action="/favourite?game_id=<%= game.id %>" method="POST" class = "favourites-form" data-favourite = "<%= game.id %>">
               <button type="submit">❤️ Favourite</button>
             </form>
-
-            <button class="delete-btn" data-id="<%= game.id %>">Remove</button>
+            <% if(isAdmin) { %>
+              <button class="delete-btn" data-id="<%= game.id %>">Remove</button>
+            <% } %>
           </li>
 
           <!-- Mark as Sold Button -->
-          <% if (!game.is_sold) { %>
-            <form action="/games/sold/<%= game.id %>" method="POST">
-              <button type="submit">✅ Mark as Sold</button>
-            </form>
-          <% } else { %>
-            <span>✔ Sold</span>
+          <% if(isAdmin) { %>
+            <% if (!game.is_sold) { %>
+              <form action="/games/sold/<%= game.id %>" method="POST">
+                <button type="submit">✅ Mark as Sold</button>
+              </form>
+            <% } else { %>
+              <span>✔ Sold</span>
+            <% } %>
           <% } %>
         </div>
       <% }); %>

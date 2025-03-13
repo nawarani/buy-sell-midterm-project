@@ -10,7 +10,8 @@ homeRoutes.get("/", (req, res) => {
     .then((result) => {
       const templateVars = { 
         games: result.rows,
-        userId: req.session.userId
+        userId: req.session.userId,
+        isAdmin: req.session.isAdmin
       };
       res.render("index", templateVars);
     })

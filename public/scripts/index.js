@@ -20,20 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       filterform.submit();
   })
-
-//-------------------------------------------------------------------------------------
-  const deleteButtons = document.querySelectorAll(".delete-btn");
-
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const gameId = this.dataset.id;
-      const gameElement = document.getElementById(`game-${gameId}`); // Get the list item element
-      // Remove the game from the DOM (removes the <li> item from the list)
-      if (gameElement) {
-        gameElement.remove();
-      }
-    });
-  });
 });
 
 

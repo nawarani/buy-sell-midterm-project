@@ -3,9 +3,13 @@ const gameRoutes = express.Router();
 const db = require('../db/connection');
 
 
+//-------------------------------------------------------------------------------------
 //rendering form to add new game
-
 gameRoutes.get('/new', (req, res) => {
+  // if (req.session.is_admin) {
+
+  // }
+
   // note FETCH ALL GAME SYSTEMS AND PASS IT INTO new-game.ejs
   // before rendering page, make a DB request (make sure systems is a selection rather than an input)
   // Query to fetch all systems from the database
@@ -15,7 +19,8 @@ gameRoutes.get('/new', (req, res) => {
     .then((result) => {
       // Create templateVars object and pass systems from the database to it
       const templateVars = {
-        systems: result.rows // Assuming result.rows contains the systems data
+        systems: result.rows, // Assuming result.rows contains the systems data
+        userId: req.session.userId
       };
 
       // Render the 'new-game' template and pass the templateVars
@@ -26,7 +31,7 @@ gameRoutes.get('/new', (req, res) => {
       res.status(500).send("Error fetching systems");
     }); // possible EJS template required
 });
-
+//-------------------------------------------------------------------------------------
 
 gameRoutes.post('/new', (req, res) => {
   const { name, description, price, condition, system } = req.body;
@@ -47,9 +52,8 @@ gameRoutes.post('/new', (req, res) => {
       res.status(500).send("Error inserting new game");
     });
 });
-
+//-------------------------------------------------------------------------------------
 // this route handles status of the game if its been sold or not
-
 gameRoutes.post('/sold/:id', (req, res) => {
   const gameId = req.params.id;
 
@@ -65,6 +69,47 @@ gameRoutes.post('/sold/:id', (req, res) => {
   });
 });
 
+//-------------------------------------------------------------------------------------
+
+  // this will filter out games based on the price filtering feature
+gameRoutes.get("/", (req, res) => {
+  const maxPrice = req.query.maxPrice || 200; //default price if non is set
+
+  // querying games in combination with the price filter
+  const query = `
+  SELECT * FROM games
+  WHERE price_cents <= $1
+  ORDER BY is_sold
+  `;
+
+  db.query(query, [maxPrice * 100]) //converts prices
+    .then((result) => {
+      const templateVars = { games: result.rows};
+      res.render("index", templateVars)
+    })
+    .catch((err) => {
+      console.error("Error", err);
+      res.status(500).send("error loading games")
+    });
+})
+//-------------------------------------------------------------------------------------
+// This handles deletes the individual game listing 
+// gameRoutes.post("/delete/:id", (req, res) => {
+//   const gameId = req.params.id;
+
+//   const query = "DELETE FROM games WHERE id = $1";
+
+//   db.query(query, [gameId])
+//     .then(() => {
+//       res.redirect("/games"); // Redirect back to the games listing
+//     })
+//     .catch((err) => {
+//       console.error("Error deleting game:", err);
+//       res.status(500).send("Error deleting game");
+//     });
+// });
+
+//-------------------------------------------------------------------------------------
 // Resets marked as sold button upon server start up
 // Might move code back to home.js (organization based on what it does)
 const resetQuery = 'UPDATE games SET is_sold = FALSE';
@@ -91,5 +136,6 @@ db.query(resetQuery)
         res.status(500).send('Error updating game status');
       });
   });
+
 
 module.exports = gameRoutes

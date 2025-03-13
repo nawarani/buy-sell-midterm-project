@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-html lang="en">
+<html lang="en">
 
 <head>
   <title>Login</title>
@@ -10,8 +10,14 @@ html lang="en">
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/header.css" />
+  <link rel="stylesheet" href="/styles/login.css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/scripts/app.js"></script>
@@ -21,7 +27,7 @@ html lang="en">
   <%- include('partials/_header') %>
   <main>
     <h3>Login</h3>
-    <form method = "POST" action="/login">
+    <form method = "POST" action="/login" class = "login-form">
       <label>Name</label>
       <input
         type = "text"

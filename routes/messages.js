@@ -9,7 +9,10 @@ router.get('/', (req, res) => {
   // for now we'll have workaround, chnage that later
   // console.log('userid inside get messages:', req.session.userId);
   if (req.session.userId) {
-    res.render('messages');
+    const templateVars = {
+      userId: req.session.userId
+    }
+    res.render('messages', templateVars);
   } else {
     res.redirect('/login'); 
   }

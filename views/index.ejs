@@ -10,8 +10,15 @@
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/header.css" />
+  <link rel="stylesheet" href="/styles/index.css" />
+  <link rel="stylesheet" href="/styles/gameBox.css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/scripts/app.js"></script>
@@ -19,45 +26,53 @@
 </head>
 
 <body>
-  <h1>Welcome to Save Point Games  🥔</h1>
+  <%- include('partials/_header') %>
+  <main>
+    <h1>Welcome to Save Point Games  🥔</h1>
+    <h2>Available Games</h2>
+
+    <form id="filterform" action="/games" method="GET" class = "filter-form">
+      <label for="maxPrice">Max Price: $<span id="priceValue">100</span></label>
+      <input type="range" name="maxPrice" id="maxPrice" min="10" max="200" step="10" value="100">
+
+      <button type="submit">Filter</button>
+    </form>
+
+    <ul class = "game-container">
+      <% games.forEach(game => { %>
+        <div class = "game-box">
+          <li id="game-<%= game.id %>">
+            <h3><%= game.name %></h3>
+            <p><strong>Price:</strong> $<%= (game.price_cents / 100).toFixed(2) %></p>
+            <p><strong>Condition:</strong> <%= game.condition %></p>
+            <p><strong>Description:</strong> <%= game.description %></p>
+            <form action="/favourite?game_id=<%= game.id %>" method="POST" class = "favourites-form" data-favourite = "<%= game.id %>">
+              <button type="submit">❤️ Favourite</button>
+            </form>
+
+            <button class="delete-btn" data-id="<%= game.id %>">Remove</button>
+          </li>
+
+          <!-- Mark as Sold Button -->
+          <% if (!game.is_sold) { %>
+            <form action="/games/sold/<%= game.id %>" method="POST">
+              <button type="submit">✅ Mark as Sold</button>
+            </form>
+          <% } else { %>
+            <span>✔ Sold</span>
+          <% } %>
+        </div>
+      <% }); %>
+    </ul>
+
+    
+    <a href="/games/new" class="post-new-game-button">
+      <button>Post game for sale</button>
+    </a>
+  </main>
 
 
-
-  <h2>Available Games</h2>
-  <ul>
-    <% games.forEach(game => { %>
-      <li>
-        <h3><%= game.name %></h3>
-        <p><strong>Price:</strong> $<%= (game.price_cents / 100).toFixed(2) %></p>
-        <p><strong>Condition:</strong> <%= game.condition %></p>
-        <p><strong>Description:</strong> <%= game.description %></p>
-        <form action="/favourites?game_id=<%= game.id %>" method="POST" class = "favourites-form" data-favourite = "<%= game.id %>">
-          <button type="submit">❤️ Favourite</button>
-        </form>
-      </li>
-
-      <form action="/" method="GET">
-        <label for="max_price">Max Price (in cents):</label>
-        <input type="number" id="max_price" name="max_price" min="0">
-        <button type="submit">Filter</button>
-      </form>
-      
-      <!-- Mark as Sold Button -->
-      <% if (!game.is_sold) { %>
-        <form action="/games/sold/<%= game.id %>" method="POST">
-          <button type="submit">✅ Mark as Sold</button>
-        </form>
-      <% } else { %>
-        <span>✔ Sold</span>
-      <% } %>
-
-
-    <% }); %>
-  </ul>
-
-  <a href="/games/new">
-    <button>Post game for sale</button>
-  </a>
+  <script src="/scripts/index.js"></script>
 </body>
 
 </html>

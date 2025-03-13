@@ -28,7 +28,7 @@ $(document).ready(function() {
       success: function(res) {
         $('.message-container').empty();
         for(let message of res.messages) {
-          $('.message-container').append(`<div class='sender-${message.sender_id}'> ${message.text} </div>`);
+          $('.message-container').append(`<div class='message sender-${message.sender_id}'> ${message.text} </div>`);
         }
         $(`.sender-${res.userId}`).addClass('sender-messages');
       },

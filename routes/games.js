@@ -6,6 +6,10 @@ const db = require('../db/connection');
 //rendering form to add new game
 
 gameRoutes.get('/new', (req, res) => {
+  // if (req.session.is_admin) {
+
+  // }
+
   // note FETCH ALL GAME SYSTEMS AND PASS IT INTO new-game.ejs
   // before rendering page, make a DB request (make sure systems is a selection rather than an input)
   // Query to fetch all systems from the database

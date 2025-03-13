@@ -23,6 +23,14 @@
 
 
   <h2>Available Games</h2>
+
+  <form action="/games" method="GET">
+    <label for="maxPrice">Max Price: $span id="priceValue"></span></label>
+    <input type="range" name="maxPrice" id="maxPrice" min="10" max="200" step="10" value="100">
+
+    <button type="submit">Filter</button>
+  </form>
+
   <ul>
     <% games.forEach(game => { %>
       <li>
@@ -34,12 +42,6 @@
           <button>❤️ Favourite</button>
         </form>
       </li>
-
-      <form action="/" method="GET">
-        <label for="max_price">Max Price (in cents):</label>
-        <input type="number" id="max_price" name="max_price" min="0">
-        <button type="submit">Filter</button>
-      </form>
       
       <!-- Mark as Sold Button -->
       <% if (!game.is_sold) { %>
@@ -49,8 +51,6 @@
       <% } else { %>
         <span>✔ Sold</span>
       <% } %>
-
-
     <% }); %>
   </ul>
 

@@ -1,7 +1,6 @@
 const db = require('../connection');
 
 const getMessages = () => {
-  // currently shows all messages, I will select based on id once i get this working
   return db.query('SELECT * FROM messages;')
     .then(data => {
       return data.rows;

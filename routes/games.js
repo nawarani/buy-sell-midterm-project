@@ -1,80 +1,66 @@
 const express = require("express");
 const gameRoutes = express.Router();
 const db = require('../db/connection');
-
-
 //-------------------------------------------------------------------------------------
 //rendering form to add new game
 gameRoutes.get('/new', (req, res) => {
-  // if (req.session.is_admin) {
-
-  // }
-
-  // note FETCH ALL GAME SYSTEMS AND PASS IT INTO new-game.ejs
-  // before rendering page, make a DB request (make sure systems is a selection rather than an input)
   // Query to fetch all systems from the database
-  const query = 'SELECT * FROM systems'; // Adjust this if necessary based on your database schema
-  
+  const query = 'SELECT * FROM systems';
+
   db.query(query)
     .then((result) => {
       // Create templateVars object and pass systems from the database to it
       const templateVars = {
-        systems: result.rows, // Assuming result.rows contains the systems data
+        systems: result.rows,
         userId: req.session.userId
       };
 
       // Render the 'new-game' template and pass the templateVars
       res.render('new-game', templateVars);
     })
-    .catch((err) => {
-      console.error("Error fetching systems:", err);
+    .catch(() => {
       res.status(500).send("Error fetching systems");
-    }); // possible EJS template required
+    });
 });
 //-------------------------------------------------------------------------------------
-
+// This handles adding a new game into the database when posting a new game for sale
 gameRoutes.post('/new', (req, res) => {
   const { name, description, price, condition, system } = req.body;
 
-
   const query = `INSERT INTO games(name, description, price_cents, condition, system_id) VALUES($1, $2, $3, $4, $5)
-  `; 
+  `;
 
   const values = [name, description, price, condition, system];
 
   db.query(query, values)
     .then(() => {
-      // Redirect back to home after successful insertion
       res.redirect('/');
     })
-    .catch((err) => {
-      console.error("Error inserting new game:", err);
+    .catch(() => {
       res.status(500).send("Error inserting new game");
     });
 });
 //-------------------------------------------------------------------------------------
-// this route handles status of the game if its been sold or not
+// This route handles the status of the game and marks it as sold when a user buys the game
 gameRoutes.post('/sold/:id', (req, res) => {
   const gameId = req.params.id;
 
   const query = 'UPDATE games SET is_sold = TRUE WHERE id = $1 RETURNING *;';
 
   db.query(query, [gameId])
-  .then(() => {
-    res.redirect('/'); // this will reload the page but with updated status of game as SOLD
-  })
-  .catch((err) => {
-    console.log('Error, did not mark game as sold', err);
-    res.status(500).send('Experienced error, did not update status of game')
-  });
+    .then(() => {
+      res.redirect('/'); // this will reload the page but with updated status of game as SOLD
+    })
+    .catch(() => {
+      res.status(500).send('Experienced error, did not update status of game');
+    });
 });
 
 //-------------------------------------------------------------------------------------
-
-  // this will filter out games based on the price filtering feature
+// This route will display games and filter out listing based on the price filtering feature
 gameRoutes.get("/", (req, res) => {
   const maxPrice = req.query.maxPrice || 100; //default price if non is set
-  console.log(maxPrice)
+  console.log(maxPrice);
   // querying games in combination with the price filter
   const query = `
   SELECT * FROM games
@@ -82,41 +68,37 @@ gameRoutes.get("/", (req, res) => {
   ORDER BY is_sold
   `;
 
-  db.query(query, [maxPrice * 100]) //converts prices
+  db.query(query, [maxPrice * 100]) //converts prices from cents to dollars
     .then((result) => {
       const templateVars = {
         games: result.rows,
-        maxPrice: maxPrice,
+        maxPrice: maxPrice, // connects to the index.js scripts which handles the filter slider
         userId: req.session.userId,
         isAdmin: req.session.isAdmin
       };
-      res.render("index", templateVars)
+      res.render("index", templateVars);
     })
-    .catch((err) => {
-      console.error("Error", err);
-      res.status(500).send("error loading games")
+    .catch(() => {
+      res.status(500).send("error loading games");
     });
-})
+});
 //-------------------------------------------------------------------------------------
-// This handles deletes the individual game listing 
+// This route handles the deleting of game id as well as from the  database where the id matches the gameId
 gameRoutes.post("/:id/delete", (req, res) => {
   const gameId = req.params.id;
-  console.log(gameId)
+  console.log(gameId);
   const query = "DELETE FROM games WHERE id = $1";
 
   db.query(query, [gameId])
     .then(() => {
       res.redirect("/"); // Redirect back to the main pages
     })
-    .catch((err) => {
-      console.error("Error deleting game:", err);
+    .catch(() => {
       res.status(500).send("Error deleting game");
     });
 });
-
 //-------------------------------------------------------------------------------------
 // Resets marked as sold button upon server start up
-// Might move code back to home.js (organization based on what it does)
 const resetQuery = 'UPDATE games SET is_sold = FALSE';
 
 db.query(resetQuery)
@@ -127,20 +109,19 @@ db.query(resetQuery)
     console.error('Error resetting games:', err);
   });
 
-  gameRoutes.post('/games/sold/:id', (req, res) => {
-    const gameId = req.params.id;
-  
-    const updateQuery = 'UPDATE games SET is_sold = TRUE WHERE id = $1';
-  
-    db.query(updateQuery, [gameId])
-      .then(() => {
-        res.redirect('/'); // Redirect back to the home page after marking it as sold
-      })
-      .catch((err) => {
-        console.error('Error marking game as sold:', err);
-        res.status(500).send('Error updating game status');
-      });
-  });
+gameRoutes.post('/games/sold/:id', (req, res) => {
+  const gameId = req.params.id;
+
+  const updateQuery = 'UPDATE games SET is_sold = TRUE WHERE id = $1';
+
+  db.query(updateQuery, [gameId])
+    .then(() => {
+      res.redirect('/'); // Redirect back to the home page after marking it as sold
+    })
+    .catch(() => {
+      res.status(500).send('Error updating game status');
+    });
+});
 
 
-module.exports = gameRoutes
+module.exports = gameRoutes;

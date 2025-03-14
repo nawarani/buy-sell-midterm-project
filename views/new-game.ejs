@@ -1,62 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inconsolata:wght@200..900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/header.css" />
   <link rel="stylesheet" href="/styles/newGame.css" />
   <title>Post new games</title>
 </head>
+
 <body>
   <%- include('partials/_header') %>
-  <main>
-    <h3>Post a game for sale</h3>
-    <form action="/games/new" method="POST" class = "new-game-form">
-      <!-- Can use dollars but convert in backend -->
-      <!-- name, price_cents, description, condition, system -->
-      <label for="name">Game Title</label>
-       <input type="text" id="name" name="name">
-  
-      <label for="description">Description</label>
-       <input type="text" id="description" name="description">
-       
-       <label for="price">Price</label>
-       <input type="text" id="price" name="price">
-  
-      <div class="conditions">
-       <label for="condition">Condition:</label>
-        <select name="condition" id="condition">
-          <option value="new">New</option>
-          <option value="like new">Like new</option>
-          <option value="used">Used</option>
-        </select>
-      </div>
-  
-  
-      <div class="systems">
-        <!-- dynamically fetch generated systems values for future additions -->
-         <p>Select a system:</p>
-         <% systems.map((system) => { %>
-          <label for="<%= system.name %>"><%= system.name %></label>
-          <input type="radio" id="<%= system.name %>" name="system" value="<%= system.id %>" required>
-        <% }) %>
-      </div>
-      
-      <label for="image">Image of game</label>
-      <input type="url" id="image" name="image" placeholder="Image">
-      <button type="submit">Submit</button> 
-    </form>
-  </main>
+    <main>
+      <h3>Post a game for sale</h3>
+      <form action="/games/new" method="POST" class="new-game-form">
+        <label for="name">Game Title</label>
+        <input type="text" id="name" name="name">
+
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description">
+
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price">
+
+        <div class="conditions">
+          <label for="condition">Condition:</label>
+          <select name="condition" id="condition">
+            <option value="new">New</option>
+            <option value="like new">Like new</option>
+            <option value="used">Used</option>
+          </select>
+        </div>
+
+
+        <div class="systems">
+          <!-- dynamically fetch generated systems values for future additions -->
+          <p>Select a system:</p>
+          <% systems.map((system)=> { %>
+            <label for="<%= system.name %>">
+              <%= system.name %>
+            </label>
+            <input type="radio" id="<%= system.name %>" name="system" value="<%= system.id %>" required>
+            <% }) %>
+        </div>
+        <!-- Current not working but will work on it post midterm -->
+        <label for="image">Image of game</label>
+        <input type="url" id="image" name="image" placeholder="Image">
+        <button type="submit">Submit</button>
+      </form>
+    </main>
 </body>
+
 </html>
-
-
-
-
-

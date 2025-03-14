@@ -1,23 +1,22 @@
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const messageQueries = require('../db/queries/messages');
 
-
+//-------------------------------------------------------------------------------------
+// Route handles the rendering of the messages once fetched and only applies if user is logged in, otherwise it'll redirect to login page
 router.get('/', (req, res) => {
-  // ideally you want to have a helper function inside user queries that checks if you are logged in
-  // for now we'll have workaround, chnage that later
-  // console.log('userid inside get messages:', req.session.userId);
   if (req.session.userId) {
     const templateVars = {
       userId: req.session.userId
-    }
+    };
     res.render('messages', templateVars);
   } else {
-    res.redirect('/login'); 
+    res.redirect('/login');
   }
-}); 
-
+});
+//-------------------------------------------------------------------------------------
+// This route fetches the list of messages from the database
 router.get('/load', (req, res) => {
   messageQueries.getMessages()
     .then(messages => {
@@ -27,19 +26,20 @@ router.get('/load', (req, res) => {
       console.log('error inside load messages.js', err);
     });
 });
-
+//-------------------------------------------------------------------------------------
+// This handles the actual sending of the messages for users logged in.
 router.post('/', (req, res) => {
   // userId set up this way for testing
   const userId = req.session.userId;
   if (userId) {
     console.log('message text:', req.body);
     messageQueries.sendMessage(userId, req.body.message)
-    .then(() => {
-      res.status(201).send();
-    })
+      .then(() => {
+        res.status(201).send();
+      });
   } else {
     res.redirect('/login');
   }
-}); 
+});
 
 module.exports = router;

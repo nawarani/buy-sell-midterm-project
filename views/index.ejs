@@ -4,87 +4,103 @@
 <head>
   <title>Home Page</title>
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inconsolata:wght@200..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/header.css" />
   <link rel="stylesheet" href="/styles/index.css" />
   <link rel="stylesheet" href="/styles/gameBox.css" />
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+    integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/scripts/app.js"></script>
   <script defer src="/scripts/favourites.js"></script>
 </head>
 
 <body>
   <%- include('partials/_header') %>
-  <main>
-    <h1>Welcome to Save Point Games  🥔</h1>
-    <h2>Available Games</h2>
+    <main>
+      <h1>Welcome to Save Point Games 🥔</h1>
+      <h2>Available Games</h2>
+      <!-- Filtering input -->
+      <form id="filterform" action="/games" method="GET" class="filter-form">
+        <label for="maxPrice">Max Price: $<span id="priceValue">
+            <%= maxPrice %>
+          </span></label>
+        <input type="range" name="maxPrice" id="maxPrice" min="10" max="200" step="10" value="<%= maxPrice %>">
 
-    <form id="filterform" action="/games" method="GET" class = "filter-form">
-      <label for="maxPrice">Max Price: $<span id="priceValue"><%= maxPrice %></span></label>
-      <input type="range" name="maxPrice" id="maxPrice" min="10" max="200" step="10" value="<%= maxPrice %>">
+        <button type="submit">Filter</button>
+      </form>
 
-      <button type="submit">Filter</button>
-    </form>
+      <ul class="game-container">
+        <% games.forEach(game=> { %>
+          <div class="game-box">
+            <li id="game-<%= game.id %>">
+              <h3>
+                <%= game.name %>
+              </h3>
+              <p><strong>Price:</strong> $<%= (game.price_cents / 100).toFixed(2) %>
+              </p>
+              <p><strong>Condition:</strong>
+                <%= game.condition %>
+              </p>
+              <p><strong>Description:</strong>
+                <%= game.description %>
+              </p>
+              <form action="/favourite?game_id=<%= game.id %>" method="POST" class="favourites-form"
+                data-favourite="<%= game.id %>">
+                <button type="submit"><i class="fa-sharp fa-solid fa-heart"></i> Favourite</button>
+              </form>
+              <!-- Remove button -->
+              <% if(isAdmin) { %>
+                <form action="/games/<%= game.id %>/delete" method="POST">
+                  <button type="submit" class="delete-btn" data-id="<%= game.id %>">Remove</button>
+                </form>
+                <% } %>
+            </li>
 
-    <ul class = "game-container">
-      <% games.forEach(game => { %>
-        <div class = "game-box">
-          <li id="game-<%= game.id %>">
-            <h3><%= game.name %></h3>
-            <p><strong>Price:</strong> $<%= (game.price_cents / 100).toFixed(2) %></p>
-            <p><strong>Condition:</strong> <%= game.condition %></p>
-            <p><strong>Description:</strong> <%= game.description %></p>
-            <form action="/favourite?game_id=<%= game.id %>" method="POST" class = "favourites-form" data-favourite = "<%= game.id %>">
-              <button type="submit"><i class="fa-sharp fa-solid fa-heart"></i> Favourite</button>
-            </form>
+            <!-- Mark as Sold Button -->
             <% if(isAdmin) { %>
-              <form action="/games/<%= game.id %>/delete" method="POST">
-                <button type="submit" class="delete-btn" data-id="<%= game.id %>">Remove</button>
-              </form>
-            <% } %>
-          </li>
+              <% if (!game.is_sold) { %>
+                <form action="/games/sold/<%= game.id %>" method="POST">
+                  <button type="submit">✅ Mark as Sold</button>
+                </form>
+                <% } else { %>
+                  <span>✔ Sold</span>
+                  <% } %>
+                    <% } %>
+          </div>
+          <% }); %>
+      </ul>
 
-          <!-- Mark as Sold Button -->
-          <% if(isAdmin) { %>
-            <% if (!game.is_sold) { %>
-              <form action="/games/sold/<%= game.id %>" method="POST">
-                <button type="submit">✅ Mark as Sold</button>
-              </form>
-            <% } else { %>
-              <span>✔ Sold</span>
-            <% } %>
-          <% } %>
-        </div>
-      <% }); %>
-    </ul>
+      <% if(isAdmin) { %>
+        <a href="/games/new" class="post-new-game-button">
+          <button>Post game for sale</button>
+        </a>
+        <% } %>
 
-    <% if(isAdmin) { %>
-      <a href="/games/new" class="post-new-game-button">
-        <button>Post game for sale</button>
-      </a>
-    <% } %> 
+          <div class="reroute-btns">
+            <a href="/favourites" class="home-to-fav"><button>Favourites</button></a>
+            <a href="/messages" class="home-to-message"><button>Send a message</button></a>
+          </div>
+    </main>
 
-    <div class ="reroute-btns">
-      <a href="/favourites" class="home-to-fav"><button>Favourites</button></a>
-      <a href="/messages" class="home-to-message"><button>Send a message</button></a>
-    </div>
-  </main>
-  
 
-  <script src="/scripts/index.js"></script>
+    <script src="/scripts/index.js"></script>
 </body>
 
 </html>

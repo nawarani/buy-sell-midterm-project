@@ -23,14 +23,6 @@ const getUserById = (id) => {
   const query_str = 'SELECT * FROM users WHERE id = $1';
   const query_args = [id];
   return db.query(query_str, query_args)
-  return db.query(`SELECT * FROM users WHERE id = '${id}';`)
-    .then(data => {
-      return data.rows[0];
-    });
-};
-//------------------------------------------------------------------------------
-const getAdmin = () => {
-  return db.query('SELECT * FROM users WHERE is_admin = true;')
     .then(data => {
       return data.rows[0];
     });

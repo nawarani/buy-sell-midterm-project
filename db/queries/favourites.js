@@ -14,7 +14,6 @@ const markFavourite = (user_id, game_id) => {
   const query_str = 'INSERT INTO favourites(user_id, game_id) VALUES($1, $2)';
   const query_args = [user_id, game_id];
   return db.query(query_str, query_args);
-  return db.query(`INSERT INTO favourites(user_id, game_id) VALUES(${user_id}, ${game_id})`);
 };
 
 module.exports = { getFavouritesByUserId, markFavourite };

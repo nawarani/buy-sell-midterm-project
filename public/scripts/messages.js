@@ -27,7 +27,7 @@ $(document).ready(function() {
       },
       success: function(res) {
         $('.message-container').empty();
-        for(let message of res.messages) {
+        for (let message of res.messages) {
           $('.message-container').append(`<div class='message sender-${message.sender_id}'> ${message.text} </div>`);
         }
         $(`.sender-${res.userId}`).addClass('sender-messages');
@@ -35,7 +35,7 @@ $(document).ready(function() {
       error: function(xhr, status, error) {
         console.log('error inside load message ajax request:', error);
       }
-    })
+    });
   };
 
 

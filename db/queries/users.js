@@ -15,7 +15,7 @@ const getUserByEmail = (email) => {
     })
     .catch(err => {
       console.log('error', err);
-    })
+    });
 };
 
 const getUserById = (id) => {
@@ -39,8 +39,8 @@ const checkUserExists = (name, email) => {
     });
 };
 
-module.exports = { 
-  getUsers, 
+module.exports = {
+  getUsers,
   getUserByEmail,
   getUserById,
   checkUserExists,

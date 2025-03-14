@@ -8,8 +8,9 @@ const getUsers = () => {
 };
 //------------------------------------------------------------------------------
 const getUserByEmail = (email) => {
-  console.log('email', email);
-  return db.query(`SELECT * FROM users WHERE email = '${email}';`)
+  const query_str = 'SELECT * FROM users WHERE email = $1';
+  const query_args = [email];
+  return db.query(query_str, query_args)
     .then(data => {
       return data.rows[0];
     })
@@ -19,21 +20,18 @@ const getUserByEmail = (email) => {
 };
 //------------------------------------------------------------------------------
 const getUserById = (id) => {
-  return db.query(`SELECT * FROM users WHERE id = '${id}';`)
-    .then(data => {
-      return data.rows[0];
-    });
-};
-//------------------------------------------------------------------------------
-const getAdmin = () => {
-  return db.query('SELECT * FROM users WHERE is_admin = true;')
+  const query_str = 'SELECT * FROM users WHERE id = $1';
+  const query_args = [id];
+  return db.query(query_str, query_args)
     .then(data => {
       return data.rows[0];
     });
 };
 //------------------------------------------------------------------------------
 const checkUserExists = (name, email) => {
-  return db.query(`SELECT * FROM users WHERE name = '${name}' AND email = '${email}';`)
+  const query_str = 'SELECT * FROM users WHERE name = $1 AND email = $2';
+  const query_args = [name, email];
+  return db.query(query_str, query_args)
     .then(data => {
       return Boolean(data.rows[0]);
     });
@@ -43,6 +41,5 @@ module.exports = {
   getUsers,
   getUserByEmail,
   getUserById,
-  checkUserExists,
-  getAdmin
+  checkUserExists
 };
